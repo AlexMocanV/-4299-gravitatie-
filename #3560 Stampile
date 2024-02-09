@@ -1,0 +1,99 @@
+#include <iostream>
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+struct priv
+{
+    int nr;
+    int f;
+
+}fr[11];
+
+bool cmp(priv a,priv b)
+{
+    if(a.f>b.f)
+    {
+        return true;
+    }
+    else if(a.f==b.f)
+    {
+        if(a.nr>b.nr)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+    else
+    {
+        return false;
+    }
+}
+
+vector<int>v;
+int fev[11];
+
+int main()
+{
+    int n,i,d,mini=1000001,minic,c,u,nr=0,a;
+    bool ok=1;
+    cin>>n;
+    for(i=0;i<n;i++)
+    {
+        cin>>a;
+        c=a;
+        nr=0;
+        while(c>0)
+        {
+            u=c%10;
+            fr[u].f++;
+            fev[u]++;
+            if(fev[u]==1)
+            {
+                nr++;
+            }
+            c/=10;
+        }
+        if(nr==2)
+        {
+            ok=0;
+            v.push_back(a);
+        }
+        for(d=0;d<=9;d++)
+        {
+            fev[d]=0;
+        }
+    }
+    for(i=0;i<=9;i++)
+    {
+        fr[i].nr=i;
+        if(fr[i].f<mini)
+        {
+            mini=fr[i].f;
+            minic=i;
+        }
+    }
+    cout<<minic<<"\n";
+    sort(fr,fr+10,cmp);
+    for(i=0;i<=9;i++)
+    {
+        cout<<fr[i].nr<<" ";
+    }
+    cout<<"\n";
+    if(ok==0)
+    {   
+        sort(v.begin(),v.end());
+        for(i=0;i<v.size();i++)
+        {
+            cout<<v[i]<<" ";
+        }
+    }
+    else
+    {
+        cout<<-1;
+    }
+    return 0;
+}
